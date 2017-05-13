@@ -25651,6 +25651,8 @@ class Lobby extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_game_GrassBackground_jsx__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_game_Mole_jsx__ = __webpack_require__(231);
+
 
 
 
@@ -25670,7 +25672,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         null,
         'Game'
       ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_GrassBackground_jsx__["a" /* default */], null)
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_GrassBackground_jsx__["a" /* default */], { mole: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_game_Mole_jsx__["a" /* default */], null) })
     );
   }
 
@@ -25713,18 +25715,108 @@ class GameOver extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mole_jsx__ = __webpack_require__(231);
+
 
 
 class GrassBackground extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
   render() {
 
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { id: "grass-background" });
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { id: 'grass-background' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'table',
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'tr',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'tr',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'tr',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            this.props.mole
+          )
+        )
+      )
+    );
   }
 
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (GrassBackground);
+
+/***/ }),
+/* 231 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class Mole extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+
+  render() {
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { id: "mole-div" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { id: "mole-image", src: "mole.png" })
+    );
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Mole);
 
 /***/ })
 /******/ ]);
