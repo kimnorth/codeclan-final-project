@@ -25733,60 +25733,64 @@ class GrassBackground extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Comp
         'table',
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'tr',
+          'tbody',
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
+            'tr',
             null,
-            this.props.mole
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
+            'tr',
             null,
-            this.props.mole
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
+            'tr',
             null,
-            this.props.mole
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'tr',
-          null,
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
-            null,
-            this.props.mole
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
-            null,
-            this.props.mole
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
-            null,
-            this.props.mole
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'tr',
-          null,
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
-            null,
-            this.props.mole
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
-            null,
-            this.props.mole
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'td',
-            null,
-            this.props.mole
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'td',
+              null,
+              this.props.mole
+            )
           )
         )
       )
@@ -25837,7 +25841,55 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "div",
       { id: "score-board" },
-      "test"
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "table",
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "tbody",
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "tr",
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "td",
+              { width: "200px" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { id: "player1-score" },
+                "Player 1",
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "p",
+                  null,
+                  "01"
+                )
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "td",
+              { width: "200px" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                null,
+                "Time: 0:59"
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "td",
+              { width: "200px" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { id: "player2-score" },
+                "Player 2",
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "p",
+                  null,
+                  "01"
+                )
+              )
+            )
+          )
+        )
+      )
     );
   }
 

@@ -9,6 +9,7 @@
   height: 600px;
   background: url(background.png);
   border: 1px solid black;
+  cursor: url("mallet2.png"), auto;
 }
 
 #mole-div {

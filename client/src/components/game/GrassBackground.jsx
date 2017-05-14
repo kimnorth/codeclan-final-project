@@ -10,6 +10,7 @@ class GrassBackground extends React.Component {
     <div id="grass-background">
       
       <table>
+      <tbody>
         <tr>
           <td>{this.props.mole}</td>
           <td>{this.props.mole}</td> 
@@ -25,6 +26,7 @@ class GrassBackground extends React.Component {
           <td>{this.props.mole}</td> 
           <td>{this.props.mole}</td>
         </tr>
+      </tbody>
       </table>
 
     </div>
