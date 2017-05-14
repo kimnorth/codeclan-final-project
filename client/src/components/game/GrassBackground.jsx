@@ -15,17 +15,17 @@ class GrassBackground extends React.Component {
         <tr>
             <td>
               <div className="mole-hole">
-                {this.props.mole}
+                <Mole />
               </div>
             </td>
             <td>
               <div className="mole-hole">
-                {this.props.mole}
+                <Mole />
               </div>
             </td> 
             <td>
               <div className="mole-hole">
-                {this.props.mole}
+                <Mole />
               </div>
             </td>
         </tr>

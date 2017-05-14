@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import GrassBackground from '../components/game/GrassBackground.jsx'
+// import GrassBackground from '../components/game/GrassBackground.jsx'
 import Mole from '../components/game/Mole.jsx'
 import ScoreBoard from '../components/game/ScoreBoard.jsx'
 import io from "socket.io-client"
@@ -10,6 +10,18 @@ class Game extends React.Component {
   constructor(props){
     super(props)
     this.socket = io("/lobby")
+    this.state = {
+      player1: {
+        timesHitMole: 0
+      },
+      player2: {
+        timesHitMole: 0
+      }
+    }
+  }
+
+  handleMoleClick(){
+    console.log('Mole clicked')
   }
 
   componentDidMount(){
@@ -21,9 +33,68 @@ class Game extends React.Component {
     return (
 
     <div id="game-container">
+      
       <h1>Whack-A-Mole</h1>
+      
       <ScoreBoard />
-      <GrassBackground mole={<Mole />} />
+      
+      <div id="grass-background">
+        <table>
+        <tbody>
+          <tr>
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td>
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td> 
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td>
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td> 
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td>
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td> 
+              <td>
+                <div className="mole-hole">
+                  <Mole />
+                </div>
+              </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
     </div>
     )
 
