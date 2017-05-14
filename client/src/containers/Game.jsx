@@ -23,12 +23,21 @@ class Game extends React.Component {
 
   updateView(data){
     console.log(data)
+    this.setState({player2: data.player1})
   }
 
   handleMoleClick(){
+
+    let player1 = this.state.player1
+    player1.timesHitMole++
+
+    this.setState({
+      player1: player1
+    })
+
     this.socket.emit(
-      'click mole', 
-      "Mole clicked by other player"
+      'click mole', { 
+      player1 }
     )
   }
 

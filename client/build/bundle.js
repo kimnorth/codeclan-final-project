@@ -14653,10 +14653,20 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
   updateView(data) {
     console.log(data);
+    this.setState({ player2: data.player1 });
   }
 
   handleMoleClick() {
-    this.socket.emit('click mole', "Mole clicked by other player");
+
+    let player1 = this.state.player1;
+    player1.timesHitMole++;
+
+    this.setState({
+      player1: player1
+    });
+
+    this.socket.emit('click mole', {
+      player1 });
   }
 
   componentDidMount() {
@@ -15123,7 +15133,7 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   "p",
                   null,
-                  this.props.player1score
+                  this.props.player2score
                 )
               )
             )
