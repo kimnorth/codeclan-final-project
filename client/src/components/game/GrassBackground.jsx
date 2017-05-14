@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Mole from './Mole.jsx'
+import MoleHole from './MoleHole.jsx'
 
 class GrassBackground extends React.Component {
 
@@ -12,19 +13,55 @@ class GrassBackground extends React.Component {
       <table>
       <tbody>
         <tr>
-          <td>{this.props.mole}</td>
-          <td>{this.props.mole}</td> 
-          <td>{this.props.mole}</td>
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td>
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td> 
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td>
         </tr>
         <tr>
-          <td>{this.props.mole}</td>
-          <td>{this.props.mole}</td> 
-          <td>{this.props.mole}</td>
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td>
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td> 
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td>
         </tr>
         <tr>
-          <td>{this.props.mole}</td>
-          <td>{this.props.mole}</td> 
-          <td>{this.props.mole}</td>
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td>
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td> 
+            <td>
+              <div className="mole-hole">
+                {this.props.mole}
+              </div>
+            </td>
         </tr>
       </tbody>
       </table>
