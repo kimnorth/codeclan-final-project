@@ -12,13 +12,18 @@
 }
 
 #mole-div {
-
   width: 200px;
   height: 200px;
-
 }
 
 #mole-image {
   width: 180px;
-  height: 180px;
+  height: 170px;
+}
+
+#score-board {
+  width: 600px;
+  height: 100px;
+  background-color: yellow;
+  border: 1px solid black;
 }

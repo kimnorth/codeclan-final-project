@@ -25652,6 +25652,8 @@ class Lobby extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_game_GrassBackground_jsx__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_game_Mole_jsx__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_game_ScoreBoard_jsx__ = __webpack_require__(232);
+
 
 
 
@@ -25672,6 +25674,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         null,
         'Game'
       ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_game_ScoreBoard_jsx__["a" /* default */], null),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_GrassBackground_jsx__["a" /* default */], { mole: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_game_Mole_jsx__["a" /* default */], null) })
     );
   }
@@ -25817,6 +25820,30 @@ class Mole extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Mole);
+
+/***/ }),
+/* 232 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+
+  render() {
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { id: "score-board" },
+      "test"
+    );
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (ScoreBoard);
 
 /***/ })
 /******/ ]);
