@@ -14640,6 +14640,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
     this.socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()("/lobby");
+    this.socket.on("click mole", this.updateView.bind(this));
     this.state = {
       player1: {
         timesHitMole: 0
@@ -14650,8 +14651,13 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     };
   }
 
+  updateView(data) {
+    console.log(data);
+  }
+
   handleMoleClick() {
-    console.log('Mole clicked');
+    // console.log('Mole clicked')
+    this.socket.emit('click mole', "Mole clicked by other player");
   }
 
   componentDidMount() {

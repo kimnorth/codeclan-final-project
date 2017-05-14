@@ -10,6 +10,7 @@ class Game extends React.Component {
   constructor(props){
     super(props)
     this.socket = io("/lobby")
+    this.socket.on("click mole", this.updateView.bind(this))
     this.state = {
       player1: {
         timesHitMole: 0
@@ -20,8 +21,16 @@ class Game extends React.Component {
     }
   }
 
+  updateView(data){
+    console.log(data)
+  }
+
   handleMoleClick(){
-    console.log('Mole clicked')
+    // console.log('Mole clicked')
+    this.socket.emit(
+      'click mole', 
+      "Mole clicked by other player"
+    )
   }
 
   componentDidMount(){

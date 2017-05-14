@@ -19,10 +19,12 @@ lobby.on('connection', function(socket){         // listen for a connection
   var totalConnected = Object.keys(srvSockets).length
   console.log(totalConnected)
 
+  // Join specific room
+  
   socket.join('game'); 
-   
-  socket.on('click button', (data) => {
-    socket.broadcast.to('game').emit('click button', data);
+
+  socket.on('click mole', (data) => {
+    socket.broadcast.to('game').emit('click mole', data);
   });
 
   console.log(socket.id)
