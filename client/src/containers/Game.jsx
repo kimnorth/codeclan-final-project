@@ -44,51 +44,51 @@ class Game extends React.Component {
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
                 <div className="mole-hole">
-                  <Mole />
+                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>

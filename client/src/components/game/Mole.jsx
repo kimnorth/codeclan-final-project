@@ -7,7 +7,7 @@ class Mole extends React.Component {
     return (
 
     <div id="mole-div">
-      <img id="mole-image" src="mole.png" />
+      <img id="mole-image" src="mole.png" onClick={this.props.handleMoleClick} />
     </div>
 
     )
