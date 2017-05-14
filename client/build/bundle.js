@@ -14656,7 +14656,6 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   handleMoleClick() {
-    // console.log('Mole clicked')
     this.socket.emit('click mole', "Mole clicked by other player");
   }
 
@@ -14674,7 +14673,10 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         null,
         'Whack-A-Mole'
       ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_game_ScoreBoard_jsx__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_game_ScoreBoard_jsx__["a" /* default */], {
+        player1score: this.state.player1.timesHitMole,
+        player2score: this.state.player2.timesHitMole
+      }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { id: 'grass-background' },
@@ -15098,7 +15100,7 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   "p",
                   null,
-                  "01"
+                  this.props.player1score
                 )
               )
             ),
@@ -15121,7 +15123,7 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   "p",
                   null,
-                  "01"
+                  this.props.player1score
                 )
               )
             )

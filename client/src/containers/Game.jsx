@@ -26,7 +26,6 @@ class Game extends React.Component {
   }
 
   handleMoleClick(){
-    // console.log('Mole clicked')
     this.socket.emit(
       'click mole', 
       "Mole clicked by other player"
@@ -45,7 +44,10 @@ class Game extends React.Component {
       
       <h1>Whack-A-Mole</h1>
       
-      <ScoreBoard />
+      <ScoreBoard 
+      player1score={this.state.player1.timesHitMole} 
+      player2score={this.state.player2.timesHitMole} 
+      />
       
       <div id="grass-background">
         <table>

@@ -14,7 +14,7 @@ class ScoreBoard extends React.Component {
         <td width="200px">
           <div id="player1-score">
             Player 1
-            <p>01</p>
+            <p>{this.props.player1score}</p>
           </div>
         </td>
         <td width="200px">
@@ -25,7 +25,7 @@ class ScoreBoard extends React.Component {
         <td width="200px">
           <div id="player2-score">
             Player 2
-            <p>01</p>
+            <p>{this.props.player1score}</p>
           </div>
       </td>
       </tr>
