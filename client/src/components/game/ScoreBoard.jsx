@@ -13,19 +13,19 @@ class ScoreBoard extends React.Component {
         <tr>
           <td width="200px">
             <div id="player1-score">
-              Player 1
-              <p>{this.props.player1score}</p>
+              <h3>Player 1</h3>
+              <h1>{this.props.player1score}</h1>
             </div>
           </td>
           <td width="200px">
             <div>
-              Time: 0:59
+              Time: {this.props.timeLeft}
             </div>
             </td> 
           <td width="200px">
             <div id="player2-score">
-              Player 2
-              <p>{this.props.player2score}</p>
+              <h3>Player 2</h3>
+              <h1>{this.props.player2score}</h1>
             </div>
         </td>
         </tr>

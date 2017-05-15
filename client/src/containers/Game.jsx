@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-// import GrassBackground from '../components/game/GrassBackground.jsx'
 import Mole from '../components/game/Mole.jsx'
 import ScoreBoard from '../components/game/ScoreBoard.jsx'
 import io from "socket.io-client"
+import GameLogic from '../models/GameLogic.js'
 
 
 class Game extends React.Component {
@@ -17,9 +17,38 @@ class Game extends React.Component {
       },
       player2: {
         timesHitMole: 0
-      }
+      },
+      molesUp: {
+        mole1: false,
+        mole2: false,
+        mole3: false,
+        mole4: false,
+        mole5: false,
+        mole6: false,
+        mole7: false,
+        mole8: false,
+        mole9: false
+      },
+      timeLeft: 60
     }
+    this.gameLogic = new GameLogic()
   }
+
+  createTimer(){
+    console.log(this.state.timeLeft)
+      setInterval(function(){
+        if (this.state.timeLeft > 0){
+          let newTimeLeft = this.state.timeLeft
+          newTimeLeft--
+          this.setState({timeLeft: newTimeLeft})
+        }
+        else if (this.state.timeLeft === 0){
+          return
+        }
+        console.log(this.state.timeLeft)
+      }.bind(this), 1000) 
+  }
+
 
   updateView(data){
     console.log(data)
@@ -42,7 +71,9 @@ class Game extends React.Component {
   }
 
   componentDidMount(){
-    console.log("Rendered")
+    this.createTimer()
+    this.gameLogic.changeMoleState(this.state)
+
   }
 
   render(){
@@ -54,7 +85,8 @@ class Game extends React.Component {
       <h1>Whack-A-Mole</h1>
       
       <ScoreBoard 
-      player1score={this.state.player1.timesHitMole} 
+      player1score={this.state.player1.timesHitMole}
+      timeLeft={this.state.timeLeft}
       player2score={this.state.player2.timesHitMole} 
       />
       

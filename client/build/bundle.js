@@ -14629,8 +14629,9 @@ module.exports = yeast;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_game_ScoreBoard_jsx__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_socket_io_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__ = __webpack_require__(284);
 
-// import GrassBackground from '../components/game/GrassBackground.jsx'
+
 
 
 
@@ -14647,8 +14648,35 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       },
       player2: {
         timesHitMole: 0
-      }
+      },
+      molesUp: {
+        mole1: false,
+        mole2: false,
+        mole3: false,
+        mole4: false,
+        mole5: false,
+        mole6: false,
+        mole7: false,
+        mole8: false,
+        mole9: false
+      },
+      timeLeft: 60
     };
+    this.gameLogic = new __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__["a" /* default */]();
+  }
+
+  createTimer() {
+    console.log(this.state.timeLeft);
+    setInterval(function () {
+      if (this.state.timeLeft > 0) {
+        let newTimeLeft = this.state.timeLeft;
+        newTimeLeft--;
+        this.setState({ timeLeft: newTimeLeft });
+      } else if (this.state.timeLeft === 0) {
+        return;
+      }
+      console.log(this.state.timeLeft);
+    }.bind(this), 1000);
   }
 
   updateView(data) {
@@ -14670,7 +14698,8 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   componentDidMount() {
-    console.log("Rendered");
+    this.createTimer();
+    this.gameLogic.changeMoleState(this.state);
   }
 
   render() {
@@ -14685,6 +14714,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_game_ScoreBoard_jsx__["a" /* default */], {
         player1score: this.state.player1.timesHitMole,
+        timeLeft: this.state.timeLeft,
         player2score: this.state.player2.timesHitMole
       }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -15106,9 +15136,13 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
                 { id: "player1-score" },
-                "Player 1",
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "p",
+                  "h3",
+                  null,
+                  "Player 1"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h1",
                   null,
                   this.props.player1score
                 )
@@ -15120,7 +15154,8 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
                 null,
-                "Time: 0:59"
+                "Time: ",
+                this.props.timeLeft
               )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -15129,9 +15164,13 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
                 { id: "player2-score" },
-                "Player 2",
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "p",
+                  "h3",
+                  null,
+                  "Player 2"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h1",
                   null,
                   this.props.player2score
                 )
@@ -33512,6 +33551,69 @@ module.exports = function(module) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 283 */,
+/* 284 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TimerLogic_js__ = __webpack_require__(286);
+
+
+class GameLogic {
+
+  constructor() {
+    this.timer = new __WEBPACK_IMPORTED_MODULE_0__TimerLogic_js__["a" /* default */]();
+  }
+
+  // Function that makes moles state change randomly between up and down
+
+  changeMoleState(gameState) {
+    // Get the gameState
+    var currentMoleState = gameState;
+    // 
+    console.log(gameState.molesUp);
+  }
+
+  // Function that determines who has won by comparing scores
+
+  // Emit which mole has popped up and which has disappeared
+
+  // Emit removing a mole once a player has clicked on it
+
+  // Timer for round
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (GameLogic);
+
+/***/ }),
+/* 285 */,
+/* 286 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class TimerLogic {
+
+  constructor() {
+    this.total = 60;
+  }
+
+  createTimer() {
+    setInterval(function () {
+      if (this.total > 0) {
+        this.total--;
+      } else if (this.total === 0) {
+        return;
+      }
+      console.log(this.total);
+    }.bind(this), 1000);
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (TimerLogic);
 
 /***/ })
 /******/ ]);
