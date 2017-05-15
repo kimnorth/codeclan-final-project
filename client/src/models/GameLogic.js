@@ -8,13 +8,6 @@ class GameLogic {
 
   // Function that makes moles state change randomly between up and down
 
-  changeMoleState(gameState){
-    // Get the gameState
-    var currentMoleState = gameState;
-    // 
-    console.log(gameState.molesUp)
-  }
-
   // Function that determines who has won by comparing scores
 
   // Emit which mole has popped up and which has disappeared

@@ -11,6 +11,7 @@ class Game extends React.Component {
     super(props)
     this.socket = io("/lobby")
     this.socket.on("click mole", this.updateView.bind(this))
+    this.socket.on("synch time", this.updateTime.bind(this))
     this.state = {
       player1: {
         timesHitMole: 0
@@ -18,35 +19,48 @@ class Game extends React.Component {
       player2: {
         timesHitMole: 0
       },
-      molesUp: {
-        mole1: false,
-        mole2: false,
-        mole3: false,
-        mole4: false,
-        mole5: false,
-        mole6: false,
-        mole7: false,
-        mole8: false,
-        mole9: false
-      },
+      molesUp: [
+        {mole1: false},
+        {mole2: false},
+        {mole3: false},
+        {mole4: false},
+        {mole5: false},
+        {mole6: false},
+        {mole7: false},
+        {mole8: false},
+        {mole9: false}
+      ],
       timeLeft: 60
     }
     this.gameLogic = new GameLogic()
   }
 
   createTimer(){
+    console.log(this)
     console.log(this.state.timeLeft)
       setInterval(function(){
         if (this.state.timeLeft > 0){
           let newTimeLeft = this.state.timeLeft
           newTimeLeft--
           this.setState({timeLeft: newTimeLeft})
+          this.socket.emit('synch time', this.state.timeLeft)
         }
         else if (this.state.timeLeft === 0){
           return
         }
-        console.log(this.state.timeLeft)
       }.bind(this), 1000) 
+  }
+
+  updateTime(data){
+    console.log(data)
+    let synchedTime = data
+    this.setState({timeLeft: synchedTime})
+  }
+
+  moleBehaviour(){
+    // Randomly make moles appear and disappear
+
+    // Pick a random mole from array of moles
   }
 
 
@@ -71,9 +85,17 @@ class Game extends React.Component {
   }
 
   componentDidMount(){
-    this.createTimer()
-    this.gameLogic.changeMoleState(this.state)
+    // this.createTimer()
+    // this.gameLogic.changeMoleState(this.state)
+  }
 
+  handleButtonClick(){
+    if (this.state.timeLeft === 60){
+      this.createTimer()  
+    }
+    else {
+      return
+    }
   }
 
   render(){
@@ -89,6 +111,8 @@ class Game extends React.Component {
       timeLeft={this.state.timeLeft}
       player2score={this.state.player2.timesHitMole} 
       />
+
+      <button onClick={this.handleButtonClick.bind(this)}>Start Timer</button>
       
       <div id="grass-background">
         <table>
@@ -96,34 +120,34 @@ class Game extends React.Component {
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole1" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole2" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole3" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole4" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole5" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole6" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>

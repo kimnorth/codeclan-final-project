@@ -14642,6 +14642,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     super(props);
     this.socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()("/lobby");
     this.socket.on("click mole", this.updateView.bind(this));
+    this.socket.on("synch time", this.updateTime.bind(this));
     this.state = {
       player1: {
         timesHitMole: 0
@@ -14649,34 +14650,37 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       player2: {
         timesHitMole: 0
       },
-      molesUp: {
-        mole1: false,
-        mole2: false,
-        mole3: false,
-        mole4: false,
-        mole5: false,
-        mole6: false,
-        mole7: false,
-        mole8: false,
-        mole9: false
-      },
+      molesUp: [{ mole1: false }, { mole2: false }, { mole3: false }, { mole4: false }, { mole5: false }, { mole6: false }, { mole7: false }, { mole8: false }, { mole9: false }],
       timeLeft: 60
     };
     this.gameLogic = new __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__["a" /* default */]();
   }
 
   createTimer() {
+    console.log(this);
     console.log(this.state.timeLeft);
     setInterval(function () {
       if (this.state.timeLeft > 0) {
         let newTimeLeft = this.state.timeLeft;
         newTimeLeft--;
         this.setState({ timeLeft: newTimeLeft });
+        this.socket.emit('synch time', this.state.timeLeft);
       } else if (this.state.timeLeft === 0) {
         return;
       }
-      console.log(this.state.timeLeft);
     }.bind(this), 1000);
+  }
+
+  updateTime(data) {
+    console.log(data);
+    let synchedTime = data;
+    this.setState({ timeLeft: synchedTime });
+  }
+
+  moleBehaviour() {
+    // Randomly make moles appear and disappear
+
+    // Pick a random mole from array of moles
   }
 
   updateView(data) {
@@ -14698,8 +14702,16 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   componentDidMount() {
-    this.createTimer();
-    this.gameLogic.changeMoleState(this.state);
+    // this.createTimer()
+    // this.gameLogic.changeMoleState(this.state)
+  }
+
+  handleButtonClick() {
+    if (this.state.timeLeft === 60) {
+      this.createTimer();
+    } else {
+      return;
+    }
   }
 
   render() {
@@ -14718,6 +14730,11 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         player2score: this.state.player2.timesHitMole
       }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        { onClick: this.handleButtonClick.bind(this) },
+        'Start Timer'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { id: 'grass-background' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14735,7 +14752,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole1', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14744,7 +14761,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole2', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14753,7 +14770,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole3', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               )
             ),
@@ -14766,7 +14783,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole4', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14775,7 +14792,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole5', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14784,7 +14801,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole6', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               )
             ),
@@ -33568,13 +33585,6 @@ class GameLogic {
   }
 
   // Function that makes moles state change randomly between up and down
-
-  changeMoleState(gameState) {
-    // Get the gameState
-    var currentMoleState = gameState;
-    // 
-    console.log(gameState.molesUp);
-  }
 
   // Function that determines who has won by comparing scores
 
