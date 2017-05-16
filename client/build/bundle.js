@@ -14630,6 +14630,7 @@ module.exports = yeast;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_socket_io_client__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__);
 
 
 
@@ -14653,7 +14654,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       molesUp: [{ mole1: false }, { mole2: false }, { mole3: false }, { mole4: false }, { mole5: false }, { mole6: false }, { mole7: false }, { mole8: false }, { mole9: false }],
       timeLeft: 60
     };
-    this.gameLogic = new __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__["a" /* default */]();
+    this.gameLogic = new __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js___default.a();
   }
 
   createTimer() {
@@ -14672,7 +14673,6 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   updateTime(data) {
-    console.log(data);
     let synchedTime = data;
     this.setState({ timeLeft: synchedTime });
   }
@@ -14680,7 +14680,27 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   moleBehaviour() {
     // Randomly make moles appear and disappear
 
+    // while (this.state.timeLeft > 0){
+    //   // at random intervals, pop up a mole
+    // }
+
+    // While loop to encapsulate the game loop
+
+    // Randomly pick a number in milliseconds for the interval between 3000 and 5000
+
+    // setInterval()
+
+    // each mole pops down after 3 seconds
+
+
     // Pick a random mole from array of moles
+
+    const randNum = Math.floor(Math.random() * 10);
+
+    console.log(randNum);
+    console.log(this.state.molesUp[randNum - 1]);
+
+    // Find mole with that index pos
   }
 
   updateView(data) {
@@ -14702,7 +14722,6 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   componentDidMount() {
-    // this.createTimer()
     // this.gameLogic.changeMoleState(this.state)
   }
 
@@ -14712,6 +14731,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     } else {
       return;
     }
+    this.moleBehaviour();
   }
 
   render() {
@@ -14752,7 +14772,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole1', handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole1', visible: this.state.molesUp, handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14814,7 +14834,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole7', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14823,7 +14843,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole8', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -14832,7 +14852,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole9', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               )
             )
@@ -15109,7 +15129,32 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 class Mole extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
+  constructor(props) {
+    super(props);
+    this.moleID = this.props.id;
+  }
+
+  canSeeMolesUpProps() {
+    console.log(this.moleID);
+    // const props = this.props.visible[0].mole1
+  }
+
+  componentWillMount() {
+    this.canSeeMolesUpProps();
+  }
+
   render() {
+
+    // const moleCss = "visible-mole"
+
+    // // If this.props.visible === false
+    // // Set moleCss.style.display to none
+    // // Else if this.props.visible === true
+    // // Set moleCss.style.display to initial    class={ moleCSS }
+
+    // this.props.visible
+
+    // moleCss
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "div",
@@ -15171,8 +15216,12 @@ class ScoreBoard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
                 null,
-                "Time: ",
-                this.props.timeLeft
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h2",
+                  null,
+                  "Time: ",
+                  this.props.timeLeft
+                )
               )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -33572,16 +33621,21 @@ module.exports = function(module) {
 /***/ }),
 /* 283 */,
 /* 284 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TimerLogic_js__ = __webpack_require__(286);
-
-
 class GameLogic {
 
-  constructor() {
-    this.timer = new __WEBPACK_IMPORTED_MODULE_0__TimerLogic_js__["a" /* default */]();
+  constructor() {}
+
+  calculateWinner(player1score, player2score) {
+    if (player1score > player2score) {
+      return "Player 1 wins";
+    } else if (player2score > player1score) {
+      return "Player 2 wins";
+    } else if (player1score === player2score) {
+      return "Draw!";
+    }
   }
 
   // Function that makes moles state change randomly between up and down
@@ -33596,34 +33650,7 @@ class GameLogic {
 
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (GameLogic);
-
-/***/ }),
-/* 285 */,
-/* 286 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class TimerLogic {
-
-  constructor() {
-    this.total = 60;
-  }
-
-  createTimer() {
-    setInterval(function () {
-      if (this.total > 0) {
-        this.total--;
-      } else if (this.total === 0) {
-        return;
-      }
-      console.log(this.total);
-    }.bind(this), 1000);
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (TimerLogic);
+module.exports = GameLogic;
 
 /***/ })
 /******/ ]);

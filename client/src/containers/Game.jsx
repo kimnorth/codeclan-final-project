@@ -52,7 +52,6 @@ class Game extends React.Component {
   }
 
   updateTime(data){
-    console.log(data)
     let synchedTime = data
     this.setState({timeLeft: synchedTime})
   }
@@ -60,7 +59,29 @@ class Game extends React.Component {
   moleBehaviour(){
     // Randomly make moles appear and disappear
 
+    // while (this.state.timeLeft > 0){
+    //   // at random intervals, pop up a mole
+    // }
+
+    // While loop to encapsulate the game loop
+
+    // Randomly pick a number in milliseconds for the interval between 3000 and 5000
+
+    // setInterval()
+
+    // each mole pops down after 3 seconds
+
+
+
     // Pick a random mole from array of moles
+
+    const randNum = Math.floor(Math.random() * 10)
+
+    console.log(randNum)
+    console.log(this.state.molesUp[randNum-1])
+
+    // Find mole with that index pos
+    
   }
 
 
@@ -85,7 +106,6 @@ class Game extends React.Component {
   }
 
   componentDidMount(){
-    // this.createTimer()
     // this.gameLogic.changeMoleState(this.state)
   }
 
@@ -96,6 +116,7 @@ class Game extends React.Component {
     else {
       return
     }
+    this.moleBehaviour()
   }
 
   render(){
@@ -120,7 +141,7 @@ class Game extends React.Component {
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole id="mole1" handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole1" visible={ this.state.molesUp } handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
@@ -154,17 +175,17 @@ class Game extends React.Component {
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole7" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole8" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
                 <div className="mole-hole">
-                  <Mole handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole9" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>

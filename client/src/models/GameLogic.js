@@ -1,9 +1,19 @@
-import TimerLogic from './TimerLogic.js'
-
 class GameLogic {
 
   constructor(){
-    this.timer = new TimerLogic()
+    
+  }
+
+  calculateWinner(player1score, player2score){
+    if (player1score > player2score){
+      return "Player 1 wins"
+    }
+    else if (player2score > player1score){
+      return "Player 2 wins"
+    }
+    else if (player1score === player2score){
+      return "Draw!"
+    }
   }
 
   // Function that makes moles state change randomly between up and down
@@ -18,4 +28,4 @@ class GameLogic {
 
 }
 
-export default GameLogic;
+module.exports = GameLogic;

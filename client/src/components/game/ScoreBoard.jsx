@@ -19,7 +19,7 @@ class ScoreBoard extends React.Component {
           </td>
           <td width="200px">
             <div>
-              Time: {this.props.timeLeft}
+              <h2>Time: {this.props.timeLeft}</h2>
             </div>
             </td> 
           <td width="200px">

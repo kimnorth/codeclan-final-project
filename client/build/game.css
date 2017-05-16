@@ -21,6 +21,7 @@
 #mole-image {
   width: 180px;
   height: 180px;
+  /*display: none;*/
 }
 
 #score-board {
