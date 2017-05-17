@@ -20,26 +20,15 @@ class Game extends React.Component {
       player2: {
         timesHitMole: 0
       },
-      molesUp: [
-        { mole: "mole1",
-          up: true},
-        { mole: "mole2",
-          up: true},
-        { mole: "mole3",
-          up: true},
-        { mole: "mole4",
-          up: true},
-        { mole: "mole5",
-          up: true},
-        { mole: "mole6",
-          up: true},
-        { mole: "mole7",
-          up: true},
-        { mole: "mole8",
-          up: true},
-        { mole: "mole9",
-          up: true}
-      ],
+      "mole1": true,
+      "mole2": true,
+      "mole3": true,
+      "mole4": true,
+      "mole5": true,
+      "mole6": true,
+      "mole7": true,
+      "mole8": true,
+      "mole9": true,
       timeLeft: 60
     }
     this.gameLogic = new GameLogic()
@@ -65,7 +54,6 @@ class Game extends React.Component {
   }
 
   renderMoles(data){
-    console.log(data)
     this.makeMoleAppear(data.pickedMole)
   }
 
@@ -73,20 +61,28 @@ class Game extends React.Component {
     const moleImageId = moleImage.id
     let mole = document.getElementById(moleImageId)
     mole.style.display = 'none';
-    const allMoleStates = this.state.molesUp
-    allMoleStates.forEach(function(element){
-      if (element.mole === moleImageId){
-        element.up = false
-      }
-    })
-    this.setState({molesUp: allMoleStates})
-    }
+    // const allMoleStates = this.state.molesUp
+    // let currentMoleIndex = null
+    this.state.moleImageId = false;
+    // allMoleStates.forEach(function(element, index){
+    //   if (element.mole === moleImageId){
+    //     element.up = false
+    //     currentMoleIndex = index
+    //     console.log(currentMoleIndex)
+    //   }
+    // })
+
+    // console.log(this.state.molesUp[currentMoleIndex].up)
+    // let currentMole = this.state.molesUp[currentMoleIndex]
+    // this.setState(this.state.molesUp[currentMoleIndex]: {up: false})
+    // }
+  }
 
   makeMoleAppear(moleImage){
-    console.log(moleImage)
-    let htmlMole = document.getElementById(moleImage.mole)
-    console.log(htmlMole)
+    let htmlMole = document.getElementById(moleImage)
     htmlMole.style.display = 'initial'
+    // const moleState = this.state.molesUp
+    // console.log(moleState)
   }
 
   moleBehaviour(){
@@ -94,7 +90,7 @@ class Game extends React.Component {
     
     setInterval(function(){
       if(this.state.timeLeft > 0){
-        const pickedMole = this.gameLogic.pickRandomMole(this.state.molesUp)
+        const pickedMole = this.gameLogic.pickRandomMole(this.state)
         this.makeMoleAppear(pickedMole)
         this.socket.emit( 
           'mole pop',
@@ -108,40 +104,79 @@ class Game extends React.Component {
 
   updateView(data){
     console.log(data)
-    
+    let clickedMole = data.clickedMole
+
+    console.log(clickedMole)
+
     this.setState({
-      molesUp: data.wholeState.molesUp,
-      player2: data.wholeState.player1})
-    
-    // Make mole disappear
-    this.state.molesUp.forEach(function(element){
-      if (element.up === false){
-        const htmlMole = document.getElementById(element.mole)
-        this.makeMoleDisappear(htmlMole)
-      }
-    
-    }.bind(this))  
+      player2: data.player1
+    })
+
+    // Switch statement that picks which mole to set to false based on data
+
+    switch(data.clickedMole){
+      case data.clickedMole = "mole1":
+        this.setState({"mole1": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole2":
+        this.setState({"mole2": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole3":
+        this.setState({"mole3": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole4":
+        this.setState({"mole4": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole5":
+        this.setState({"mole5": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole6":
+        this.setState({"mole6": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole7":
+        this.setState({"mole7": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole8":
+        this.setState({"mole8": false})
+        console.log(this.state)
+        break
+      case data.clickedMole = "mole9":
+        this.setState({"mole9": false})
+        console.log(this.state)
+        break
+    }
+
+    const htmlMole = document.getElementById(data.clickedMole)
+    this.makeMoleDisappear(htmlMole)
+
   }
 
 
   handleMoleClick(event){
-    // console.log(event.target)
     this.makeMoleDisappear(event.target)
-    // need to send whole state so current board layout can be sent for each click
-    let wholeState = this.state
-    wholeState.player1.timesHitMole++
-    this.setState({
-      wholeState
-    })
-    this.socket.emit(
-      'click mole', { 
-      wholeState }
-    )
-  }
+    let clickedMoleState = event.target.id
+    console.log(clickedMoleState)
 
-  // componentDidMount(){
-  //   this.moleBehaviour()
-  // }
+    let player1 = this.state.player1
+    player1.timesHitMole++
+    this.setState({
+      player1: player1
+    })
+
+    this.socket.emit(
+      'click mole', {
+        player1: player1,
+        clickedMole: clickedMoleState}
+    )
+
+  }
 
   handleButtonClick(){
     if (this.state.timeLeft === 60){
@@ -151,7 +186,6 @@ class Game extends React.Component {
       return
     }
     this.moleBehaviour()
-    // need to emit a boolean saying to start mole behaviour on other screen
   }
 
   render(){

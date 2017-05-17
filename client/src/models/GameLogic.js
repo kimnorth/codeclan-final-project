@@ -18,17 +18,11 @@ class GameLogic {
 
   pickRandomMole(molesState){
     console.log(molesState)
-    const randNum = Math.floor(Math.random() * 10)
-    return molesState[randNum-1]
+    const randNum = Math.floor(Math.random() * 9)
+    const mole = ("mole" + (randNum+1))
+    console.log(mole)
+    return mole
   }
-  
-  // Emit which mole has popped up and which has disappeared
-
-  
-
-  // Emit removing a mole once a player has clicked on it
-
-  // Timer for round
 
 }
 

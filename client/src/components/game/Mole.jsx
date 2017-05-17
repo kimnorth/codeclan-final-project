@@ -7,14 +7,14 @@ class Mole extends React.Component {
     this.moleID = this.props.id
   }
 
-  canSeeMolesUpProps(){
-    console.log(this.moleID)
-    // const props = this.props.visible[0].mole1
-  }
+  // canSeeMolesUpProps(){
+  //   console.log(this.moleID)
+  //   // const props = this.props.visible[0].mole1
+  // }
 
-  componentWillMount(){
-    this.canSeeMolesUpProps()
-  }
+  // componentWillMount(){
+  //   this.canSeeMolesUpProps()
+  // }
 
 
 
