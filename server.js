@@ -20,24 +20,25 @@ lobby.on('connection', function(socket){         // listen for a connection
   console.log(totalConnected)
 
   // Join specific room
+
+    socket.join('game'); 
+
+    socket.on('click mole', (data) => {
+      socket.broadcast.to('game').emit('click mole', data);
+    });
+
+    socket.on('synch time', (data) => {
+      socket.broadcast.to('game').emit('synch time', data)
+    })
+
+    socket.on('mole pop', (data) => {
+      socket.broadcast.to('game').emit('mole pop', data)
+    })
+
+    socket.on('winner', (data) => {
+      socket.broadcast.to('game').emit('winner', data)
+    })
   
-  socket.join('game'); 
-
-  socket.on('click mole', (data) => {
-    socket.broadcast.to('game').emit('click mole', data);
-  });
-
-  socket.on('synch time', (data) => {
-    socket.broadcast.to('game').emit('synch time', data)
-  })
-
-  socket.on('mole pop', (data) => {
-    socket.broadcast.to('game').emit('mole pop', data)
-  })
-
-  socket.on('winner', (data) => {
-    socket.broadcast.to('game').emit('winner', data)
-  })
 
   console.log(socket.id)
 

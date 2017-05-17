@@ -34,8 +34,11 @@
   border: 1px solid black;
 }
 
-#final-score {
-
+#start-timer {
+  width: 100px;
+  height: 40px;
+  margin-left: 40%;
+  font-weight: bold
 }
 
 /*.mole-hole {

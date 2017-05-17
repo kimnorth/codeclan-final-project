@@ -11386,8 +11386,8 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
-          { onClick: this.handleButtonClick.bind(this) },
-          'Start Timer'
+          { onClick: this.handleButtonClick.bind(this), id: 'start-timer' },
+          'START'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',

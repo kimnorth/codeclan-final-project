@@ -210,16 +210,14 @@ class Game extends React.Component {
       <h1 id="heading">Whack-A-Mole</h1>
 
     <div id="game-container">
-      
-      
-      
+
       <ScoreBoard 
       player1score={this.state.player1.timesHitMole}
       timeLeft={this.state.timeLeft}
       player2score={this.state.player2.timesHitMole} 
       />
 
-      <button onClick={this.handleButtonClick.bind(this)}>Start Timer</button>
+      <button onClick={this.handleButtonClick.bind(this)} id="start-timer">START</button>
       
       <div id="grass-background">
         <table>
