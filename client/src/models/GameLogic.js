@@ -1,8 +1,6 @@
 class GameLogic {
 
-  constructor(){
-    
-  }
+  // Function that determines who has won by comparing scores
 
   calculateWinner(player1score, player2score){
     if (player1score > player2score){
@@ -18,9 +16,15 @@ class GameLogic {
 
   // Function that makes moles state change randomly between up and down
 
-  // Function that determines who has won by comparing scores
-
+  pickRandomMole(molesState){
+    console.log(molesState)
+    const randNum = Math.floor(Math.random() * 10)
+    return molesState[randNum-1]
+  }
+  
   // Emit which mole has popped up and which has disappeared
+
+  
 
   // Emit removing a mole once a player has clicked on it
 
@@ -28,4 +32,4 @@ class GameLogic {
 
 }
 
-module.exports = GameLogic;
+export default GameLogic;

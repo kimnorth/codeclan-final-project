@@ -14630,7 +14630,6 @@ module.exports = yeast;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_socket_io_client__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__);
 
 
 
@@ -14654,7 +14653,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       molesUp: [{ mole1: false }, { mole2: false }, { mole3: false }, { mole4: false }, { mole5: false }, { mole6: false }, { mole7: false }, { mole8: false }, { mole9: false }],
       timeLeft: 60
     };
-    this.gameLogic = new __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js___default.a();
+    this.gameLogic = new __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__["a" /* default */]();
   }
 
   createTimer() {
@@ -14677,9 +14676,18 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.setState({ timeLeft: synchedTime });
   }
 
+  makeMoleDisappear(moleImage) {
+    console.log(moleImage.id);
+    let mole = document.getElementById(moleImage.id);
+    console.log(mole);
+    mole.style.display = 'none';
+  }
+
   moleBehaviour() {
     // Randomly make moles appear and disappear
 
+    const pickedMole = this.gameLogic.pickRandomMole(this.state.molesUp);
+    console.log(pickedMole);
     // while (this.state.timeLeft > 0){
     //   // at random intervals, pop up a mole
     // }
@@ -14695,10 +14703,6 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
     // Pick a random mole from array of moles
 
-    const randNum = Math.floor(Math.random() * 10);
-
-    console.log(randNum);
-    console.log(this.state.molesUp[randNum - 1]);
 
     // Find mole with that index pos
   }
@@ -14708,7 +14712,11 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.setState({ player2: data.player1 });
   }
 
-  handleMoleClick() {
+  handleMoleClick(event) {
+
+    console.log(event.target);
+
+    this.makeMoleDisappear(event.target);
 
     let player1 = this.state.player1;
     player1.timesHitMole++;
@@ -14722,7 +14730,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   componentDidMount() {
-    // this.gameLogic.changeMoleState(this.state)
+    this.moleBehaviour();
   }
 
   handleButtonClick() {
@@ -15159,7 +15167,7 @@ class Mole extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "div",
       { id: "mole-div" },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { id: "mole-image", src: "mole.png", onClick: this.props.handleMoleClick })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { id: this.props.id, className: "mole-image", src: "mole.png", onClick: this.props.handleMoleClick })
     );
   }
 
@@ -33621,12 +33629,12 @@ module.exports = function(module) {
 /***/ }),
 /* 283 */,
 /* 284 */
-/***/ (function(module, __webpack_exports__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 class GameLogic {
 
-  constructor() {}
+  // Function that determines who has won by comparing scores
 
   calculateWinner(player1score, player2score) {
     if (player1score > player2score) {
@@ -33640,9 +33648,14 @@ class GameLogic {
 
   // Function that makes moles state change randomly between up and down
 
-  // Function that determines who has won by comparing scores
+  pickRandomMole(molesState) {
+    console.log(molesState);
+    const randNum = Math.floor(Math.random() * 10);
+    return molesState[randNum - 1];
+  }
 
   // Emit which mole has popped up and which has disappeared
+
 
   // Emit removing a mole once a player has clicked on it
 
@@ -33650,7 +33663,7 @@ class GameLogic {
 
 }
 
-module.exports = GameLogic;
+/* harmony default export */ __webpack_exports__["a"] = (GameLogic);
 
 /***/ })
 /******/ ]);

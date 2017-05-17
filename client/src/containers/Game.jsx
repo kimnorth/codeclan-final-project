@@ -56,9 +56,18 @@ class Game extends React.Component {
     this.setState({timeLeft: synchedTime})
   }
 
+  makeMoleDisappear(moleImage){
+    console.log(moleImage.id)
+    let mole = document.getElementById(moleImage.id)
+    console.log(mole)
+    mole.style.display = 'none';
+  }
+
   moleBehaviour(){
     // Randomly make moles appear and disappear
-
+    
+    const pickedMole = this.gameLogic.pickRandomMole(this.state.molesUp)
+    console.log(pickedMole)
     // while (this.state.timeLeft > 0){
     //   // at random intervals, pop up a mole
     // }
@@ -75,10 +84,6 @@ class Game extends React.Component {
 
     // Pick a random mole from array of moles
 
-    const randNum = Math.floor(Math.random() * 10)
-
-    console.log(randNum)
-    console.log(this.state.molesUp[randNum-1])
 
     // Find mole with that index pos
     
@@ -90,7 +95,11 @@ class Game extends React.Component {
     this.setState({player2: data.player1})
   }
 
-  handleMoleClick(){
+  handleMoleClick(event){
+
+    console.log(event.target)
+
+    this.makeMoleDisappear(event.target)
 
     let player1 = this.state.player1
     player1.timesHitMole++
@@ -106,7 +115,7 @@ class Game extends React.Component {
   }
 
   componentDidMount(){
-    // this.gameLogic.changeMoleState(this.state)
+    this.moleBehaviour()
   }
 
   handleButtonClick(){
