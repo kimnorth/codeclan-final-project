@@ -14650,15 +14650,22 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       player2: {
         timesHitMole: 0
       },
-      molesUp: [{ mole1: false }, { mole2: false }, { mole3: false }, { mole4: false }, { mole5: false }, { mole6: false }, { mole7: false }, { mole8: false }, { mole9: false }],
+      molesUp: [{ mole: "mole1",
+        up: true }, { mole: "mole2",
+        up: true }, { mole: "mole3",
+        up: true }, { mole: "mole4",
+        up: true }, { mole: "mole5",
+        up: true }, { mole: "mole6",
+        up: true }, { mole: "mole7",
+        up: true }, { mole: "mole8",
+        up: true }, { mole: "mole9",
+        up: true }],
       timeLeft: 60
     };
     this.gameLogic = new __WEBPACK_IMPORTED_MODULE_4__models_GameLogic_js__["a" /* default */]();
   }
 
   createTimer() {
-    console.log(this);
-    console.log(this.state.timeLeft);
     setInterval(function () {
       if (this.state.timeLeft > 0) {
         let newTimeLeft = this.state.timeLeft;
@@ -14677,10 +14684,17 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 
   makeMoleDisappear(moleImage) {
-    console.log(moleImage.id);
-    let mole = document.getElementById(moleImage.id);
-    console.log(mole);
+    console.log(moleImage);
+    const moleImageId = moleImage.id;
+    let mole = document.getElementById(moleImageId);
     mole.style.display = 'none';
+    const allMoleStates = this.state.molesUp;
+    allMoleStates.forEach(function (element) {
+      if (element.mole === moleImageId) {
+        element.up = false;
+      }
+    });
+    this.setState({ molesUp: allMoleStates });
   }
 
   moleBehaviour() {
@@ -14691,25 +14705,30 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     // while (this.state.timeLeft > 0){
     //   // at random intervals, pop up a mole
     // }
-
     // While loop to encapsulate the game loop
-
     // Randomly pick a number in milliseconds for the interval between 3000 and 5000
-
     // setInterval()
-
     // each mole pops down after 3 seconds
-
-
     // Pick a random mole from array of moles
-
-
     // Find mole with that index pos
   }
 
   updateView(data) {
     console.log(data);
-    this.setState({ player2: data.player1 });
+
+    this.setState({
+      molesUp: data.wholeState.molesUp,
+      player2: data.wholeState.player1 });
+
+    // Make mole disappear
+    this.state.molesUp.forEach(function (element) {
+      if (element.up === false) {
+        console.log(element);
+        const htmlMole = document.getElementById(element.mole);
+        this.makeMoleDisappear(htmlMole);
+        // console.log(htmlMole)
+      }
+    }.bind(this));
   }
 
   handleMoleClick(event) {
@@ -14718,15 +14737,17 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
     this.makeMoleDisappear(event.target);
 
-    let player1 = this.state.player1;
-    player1.timesHitMole++;
+    // need to send whole state so current board layout can be sent for each click
+
+    let wholeState = this.state;
+    wholeState.player1.timesHitMole++;
 
     this.setState({
-      player1: player1
+      wholeState
     });
 
     this.socket.emit('click mole', {
-      player1 });
+      wholeState });
   }
 
   componentDidMount() {
@@ -14780,7 +14801,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
                   { className: 'mole-hole' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole1', visible: this.state.molesUp, handleMoleClick: this.handleMoleClick.bind(this) })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_game_Mole_jsx__["a" /* default */], { id: 'mole1', handleMoleClick: this.handleMoleClick.bind(this) })
                 )
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

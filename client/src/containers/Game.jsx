@@ -20,15 +20,24 @@ class Game extends React.Component {
         timesHitMole: 0
       },
       molesUp: [
-        {mole1: false},
-        {mole2: false},
-        {mole3: false},
-        {mole4: false},
-        {mole5: false},
-        {mole6: false},
-        {mole7: false},
-        {mole8: false},
-        {mole9: false}
+        { mole: "mole1",
+          up: true},
+        { mole: "mole2",
+          up: true},
+        { mole: "mole3",
+          up: true},
+        { mole: "mole4",
+          up: true},
+        { mole: "mole5",
+          up: true},
+        { mole: "mole6",
+          up: true},
+        { mole: "mole7",
+          up: true},
+        { mole: "mole8",
+          up: true},
+        { mole: "mole9",
+          up: true}
       ],
       timeLeft: 60
     }
@@ -36,8 +45,6 @@ class Game extends React.Component {
   }
 
   createTimer(){
-    console.log(this)
-    console.log(this.state.timeLeft)
       setInterval(function(){
         if (this.state.timeLeft > 0){
           let newTimeLeft = this.state.timeLeft
@@ -57,11 +64,18 @@ class Game extends React.Component {
   }
 
   makeMoleDisappear(moleImage){
-    console.log(moleImage.id)
-    let mole = document.getElementById(moleImage.id)
-    console.log(mole)
+    console.log(moleImage)
+    const moleImageId = moleImage.id
+    let mole = document.getElementById(moleImageId)
     mole.style.display = 'none';
-  }
+    const allMoleStates = this.state.molesUp
+    allMoleStates.forEach(function(element){
+      if (element.mole === moleImageId){
+        element.up = false
+      }
+    })
+    this.setState({molesUp: allMoleStates})
+    }
 
   moleBehaviour(){
     // Randomly make moles appear and disappear
@@ -71,20 +85,11 @@ class Game extends React.Component {
     // while (this.state.timeLeft > 0){
     //   // at random intervals, pop up a mole
     // }
-
     // While loop to encapsulate the game loop
-
     // Randomly pick a number in milliseconds for the interval between 3000 and 5000
-
     // setInterval()
-
     // each mole pops down after 3 seconds
-
-
-
     // Pick a random mole from array of moles
-
-
     // Find mole with that index pos
     
   }
@@ -92,8 +97,23 @@ class Game extends React.Component {
 
   updateView(data){
     console.log(data)
-    this.setState({player2: data.player1})
+    
+    this.setState({
+      molesUp: data.wholeState.molesUp,
+      player2: data.wholeState.player1})
+    
+    // Make mole disappear
+    this.state.molesUp.forEach(function(element){
+      if (element.up === false){
+        console.log(element)
+        const htmlMole = document.getElementById(element.mole)
+        this.makeMoleDisappear(htmlMole)
+        // console.log(htmlMole)
+      }
+    
+    }.bind(this))  
   }
+
 
   handleMoleClick(event){
 
@@ -101,16 +121,18 @@ class Game extends React.Component {
 
     this.makeMoleDisappear(event.target)
 
-    let player1 = this.state.player1
-    player1.timesHitMole++
+    // need to send whole state so current board layout can be sent for each click
+
+    let wholeState = this.state
+    wholeState.player1.timesHitMole++
 
     this.setState({
-      player1: player1
+      wholeState
     })
 
     this.socket.emit(
       'click mole', { 
-      player1 }
+      wholeState }
     )
   }
 
@@ -150,7 +172,7 @@ class Game extends React.Component {
           <tr>
               <td>
                 <div className="mole-hole">
-                  <Mole id="mole1" visible={ this.state.molesUp } handleMoleClick={this.handleMoleClick.bind(this)}/>
+                  <Mole id="mole1" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
