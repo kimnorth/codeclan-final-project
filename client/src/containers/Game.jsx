@@ -13,6 +13,7 @@ class Game extends React.Component {
     this.socket.on("click mole", this.updateView.bind(this))
     this.socket.on("synch time", this.updateTime.bind(this))
     this.socket.on("mole pop", this.renderMoles.bind(this))
+    this.socket.on("winner", this.receiveGameOver.bind(this))
     this.state = {
       player1: {
         timesHitMole: 0
@@ -29,9 +30,25 @@ class Game extends React.Component {
       "mole7": true,
       "mole8": true,
       "mole9": true,
-      timeLeft: 60
+      timeLeft: 60,
+      timeStarted: false,
+      winningPlayer: null,
+      gameOver: false
     }
     this.gameLogic = new GameLogic()
+  }
+
+  receiveGameOver(data){
+    // this.setState({gameOver: data.gameOver})
+    if(data.gameOver){
+      console.log(data)
+      if (data.winningPlayer === "Player 1"){
+        this.setState({winningPlayer: "Player 2"})    
+      }
+      else if (data.winningPlayer === "Player 2"){
+        this.setState({winningPlayer: "Player 1"})    
+      }  
+    }
   }
 
   createTimer(){
@@ -40,17 +57,31 @@ class Game extends React.Component {
           let newTimeLeft = this.state.timeLeft
           newTimeLeft--
           this.setState({timeLeft: newTimeLeft})
-          this.socket.emit('synch time', this.state.timeLeft)
+          this.socket.emit('synch time', newTimeLeft)
         }
         else if (this.state.timeLeft === 0){
+          this.setState({gameOver: true})
+          if (this.state.winningPlayer){
+            this.setState({winningPlayer: "Player 1"})
+            this.showWinner()
+          }
+          else if (!this.state.winningPlayer){
+            this.setState({winningPlayer: "Player 2"})
+            this.showWinner()
+          }
+          let gameOver = this.state.gameOver
+          let winner = this.state.winningPlayer
+          this.socket.emit('winner', {winningPlayer: winner, gameOver: gameOver})
+
           return
         }
-      }.bind(this), 1000) 
+        this.setState({winningPlayer: this.gameLogic.calculateWinner(this.state.player1.timesHitMole, this.state.player2.timesHitMole)})
+      }.bind(this), 1000)      
   }
 
   updateTime(data){
-    let synchedTime = data
-    this.setState({timeLeft: synchedTime})
+      let synchedTime = data
+      this.setState({timeLeft: synchedTime})
   }
 
   renderMoles(data){
@@ -61,28 +92,13 @@ class Game extends React.Component {
     const moleImageId = moleImage.id
     let mole = document.getElementById(moleImageId)
     mole.style.display = 'none';
-    // const allMoleStates = this.state.molesUp
-    // let currentMoleIndex = null
     this.state.moleImageId = false;
-    // allMoleStates.forEach(function(element, index){
-    //   if (element.mole === moleImageId){
-    //     element.up = false
-    //     currentMoleIndex = index
-    //     console.log(currentMoleIndex)
-    //   }
-    // })
-
-    // console.log(this.state.molesUp[currentMoleIndex].up)
-    // let currentMole = this.state.molesUp[currentMoleIndex]
-    // this.setState(this.state.molesUp[currentMoleIndex]: {up: false})
-    // }
   }
 
   makeMoleAppear(moleImage){
+
     let htmlMole = document.getElementById(moleImage)
     htmlMole.style.display = 'initial'
-    // const moleState = this.state.molesUp
-    // console.log(moleState)
   }
 
   moleBehaviour(){
@@ -101,68 +117,57 @@ class Game extends React.Component {
 
   }
 
-
   updateView(data){
-    console.log(data)
     let clickedMole = data.clickedMole
-
-    console.log(clickedMole)
+    this.showWinner()
 
     this.setState({
       player2: data.player1
     })
 
-    // Switch statement that picks which mole to set to false based on data
-
     switch(data.clickedMole){
       case data.clickedMole = "mole1":
         this.setState({"mole1": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole2":
         this.setState({"mole2": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole3":
         this.setState({"mole3": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole4":
         this.setState({"mole4": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole5":
         this.setState({"mole5": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole6":
         this.setState({"mole6": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole7":
         this.setState({"mole7": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole8":
         this.setState({"mole8": false})
-        console.log(this.state)
         break
       case data.clickedMole = "mole9":
         this.setState({"mole9": false})
-        console.log(this.state)
         break
     }
 
     const htmlMole = document.getElementById(data.clickedMole)
-    this.makeMoleDisappear(htmlMole)
+    this.makeMoleDisappear(htmlMole)  
+
+    let moleHoleDivId = data.clickedMole
+    moleHoleDivId += "-hole"
+    let moleHoleDivHTML = document.getElementById(moleHoleDivId)
+    moleHoleDivHTML.style.display = 'initial';
 
   }
-
 
   handleMoleClick(event){
     this.makeMoleDisappear(event.target)
     let clickedMoleState = event.target.id
-    console.log(clickedMoleState)
 
     let player1 = this.state.player1
     player1.timesHitMole++
@@ -175,7 +180,15 @@ class Game extends React.Component {
         player1: player1,
         clickedMole: clickedMoleState}
     )
+    let audio = document.getElementById('mole-hit')
+    audio.play()
+  }
 
+  showWinner(){
+    if (!this.state.gameOver){
+      let finalScore = document.getElementById('final-score')
+      finalScore.style.display = "initial"  
+    }
   }
 
   handleButtonClick(){
@@ -192,9 +205,13 @@ class Game extends React.Component {
 
     return (
 
+      <div>
+
+      <h1 id="heading">Whack-A-Mole</h1>
+
     <div id="game-container">
       
-      <h1>Whack-A-Mole</h1>
+      
       
       <ScoreBoard 
       player1score={this.state.player1.timesHitMole}
@@ -209,58 +226,82 @@ class Game extends React.Component {
         <tbody>
           <tr>
               <td>
-                <div className="mole-hole">
+                <div id="mole1-div">
+                  <div className="mole-hole" id="mole1-hole">
+                  </div>  
                   <Mole id="mole1" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
-                <div className="mole-hole">
+                <div id="mole2-div">
+                  <div className="mole-hole" id="mole2-hole">
+                  </div>
                   <Mole id="mole2" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
-                <div className="mole-hole">
+                <div className="mole-hole" id="mole3-div">
+                  <div id="mole3-hole">
+                  </div>
                   <Mole id="mole3" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>
           <tr>
               <td>
-                <div className="mole-hole">
-                  <Mole id="mole4" handleMoleClick={this.handleMoleClick.bind(this)}/>
+                <div id="mole4-div">
+                <div className="mole-hole" id="mole4-hole">
+                </div>  
+                <Mole id="mole4" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
-                <div className="mole-hole">
-                  <Mole id="mole5" handleMoleClick={this.handleMoleClick.bind(this)}/>
+                <div id="mole5-div">
+                <div className="mole-hole" id="mole5-hole">
+                </div>
+                <Mole id="mole5" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
-                <div className="mole-hole">
-                  <Mole id="mole6" handleMoleClick={this.handleMoleClick.bind(this)}/>
+                <div id="mole6-div">
+                <div className="mole-hole" id="mole6-hole">
+                </div>
+                <Mole id="mole6" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>
           <tr>
               <td>
-                <div className="mole-hole">
-                  <Mole id="mole7" handleMoleClick={this.handleMoleClick.bind(this)}/>
+                <div id="mole7-div">
+                <div className="mole-hole" id="mole7-hole">
+                </div>
+                <Mole id="mole7" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
               <td>
-                <div className="mole-hole">
-                  <Mole id="mole8" handleMoleClick={this.handleMoleClick.bind(this)}/>
+                <div id="mole8-div">
+                <div className="mole-hole" id="mole8-hole">
+                </div>
+                <Mole id="mole8" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td> 
               <td>
-                <div className="mole-hole">
-                  <Mole id="mole9" handleMoleClick={this.handleMoleClick.bind(this)}/>
+                <div id="mole9-div">
+                <div className="mole-hole" id="mole9-hole">
+                </div>
+                <Mole id="mole9" handleMoleClick={this.handleMoleClick.bind(this)}/>
                 </div>
               </td>
           </tr>
         </tbody>
         </table>
       </div>
+
+      <div id="final-score">
+        <h2>The winner is: {this.state.winningPlayer}</h2>
+      </div>
+
+    </div>
     </div>
     )
 

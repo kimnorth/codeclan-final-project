@@ -35,6 +35,10 @@ lobby.on('connection', function(socket){         // listen for a connection
     socket.broadcast.to('game').emit('mole pop', data)
   })
 
+  socket.on('winner', (data) => {
+    socket.broadcast.to('game').emit('winner', data)
+  })
+
   console.log(socket.id)
 
 })

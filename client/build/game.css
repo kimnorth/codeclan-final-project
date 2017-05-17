@@ -1,7 +1,11 @@
 #game-container {
   width: 100%;
   height: 800px;
-  border: 1px solid black;
+  /*margin-left: 20%;*/
+}
+
+#heading {
+  text-align: center;
 }
 
 #grass-background {
@@ -15,7 +19,6 @@
 #mole-div {
   width: 200px;
   height: 200px;
-  /*border: 1px solid black;*/
 }
 
 .mole-image {
@@ -31,9 +34,15 @@
   border: 1px solid black;
 }
 
-.mole-hole {
-  width: 200px;
-  height: 200px;
-  /*background: black;
-  border-radius: 1000px / 300px;*/
+#final-score {
+
 }
+
+/*.mole-hole {
+  width: 180px;
+  height: 100px;
+  background: black;
+  border-radius: 1000px / 500px;
+  margin: auto;
+  display: initial;
+}*/

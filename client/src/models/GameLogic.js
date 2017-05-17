@@ -4,10 +4,10 @@ class GameLogic {
 
   calculateWinner(player1score, player2score){
     if (player1score > player2score){
-      return "Player 1 wins"
+      return "Player 1"
     }
     else if (player2score > player1score){
-      return "Player 2 wins"
+      return "Player 2"
     }
     else if (player1score === player2score){
       return "Draw!"
@@ -17,10 +17,8 @@ class GameLogic {
   // Function that makes moles state change randomly between up and down
 
   pickRandomMole(molesState){
-    console.log(molesState)
     const randNum = Math.floor(Math.random() * 9)
     const mole = ("mole" + (randNum+1))
-    console.log(mole)
     return mole
   }
 
