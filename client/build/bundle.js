@@ -14643,6 +14643,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()("/lobby");
     this.socket.on("click mole", this.updateView.bind(this));
     this.socket.on("synch time", this.updateTime.bind(this));
+    this.socket.on("mole pop", this.renderMoles.bind(this));
     this.state = {
       player1: {
         timesHitMole: 0
@@ -14683,8 +14684,12 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.setState({ timeLeft: synchedTime });
   }
 
+  renderMoles(data) {
+    console.log(data);
+    this.makeMoleAppear(data.pickedMole);
+  }
+
   makeMoleDisappear(moleImage) {
-    console.log(moleImage);
     const moleImageId = moleImage.id;
     let mole = document.getElementById(moleImageId);
     mole.style.display = 'none';
@@ -14697,20 +14702,23 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.setState({ molesUp: allMoleStates });
   }
 
-  moleBehaviour() {
-    // Randomly make moles appear and disappear
+  makeMoleAppear(moleImage) {
+    console.log(moleImage);
+    let htmlMole = document.getElementById(moleImage.mole);
+    console.log(htmlMole);
+    htmlMole.style.display = 'initial';
+  }
 
-    const pickedMole = this.gameLogic.pickRandomMole(this.state.molesUp);
-    console.log(pickedMole);
-    // while (this.state.timeLeft > 0){
-    //   // at random intervals, pop up a mole
-    // }
-    // While loop to encapsulate the game loop
-    // Randomly pick a number in milliseconds for the interval between 3000 and 5000
-    // setInterval()
-    // each mole pops down after 3 seconds
-    // Pick a random mole from array of moles
-    // Find mole with that index pos
+  moleBehaviour() {
+    // Randomly make moles appear
+
+    setInterval(function () {
+      if (this.state.timeLeft > 0) {
+        const pickedMole = this.gameLogic.pickRandomMole(this.state.molesUp);
+        this.makeMoleAppear(pickedMole);
+        this.socket.emit('mole pop', { pickedMole });
+      }
+    }.bind(this), 1000);
   }
 
   updateView(data) {
@@ -14723,36 +14731,28 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     // Make mole disappear
     this.state.molesUp.forEach(function (element) {
       if (element.up === false) {
-        console.log(element);
         const htmlMole = document.getElementById(element.mole);
         this.makeMoleDisappear(htmlMole);
-        // console.log(htmlMole)
       }
     }.bind(this));
   }
 
   handleMoleClick(event) {
-
-    console.log(event.target);
-
+    // console.log(event.target)
     this.makeMoleDisappear(event.target);
-
     // need to send whole state so current board layout can be sent for each click
-
     let wholeState = this.state;
     wholeState.player1.timesHitMole++;
-
     this.setState({
       wholeState
     });
-
     this.socket.emit('click mole', {
       wholeState });
   }
 
-  componentDidMount() {
-    this.moleBehaviour();
-  }
+  // componentDidMount(){
+  //   this.moleBehaviour()
+  // }
 
   handleButtonClick() {
     if (this.state.timeLeft === 60) {
@@ -14761,6 +14761,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       return;
     }
     this.moleBehaviour();
+    // need to emit a boolean saying to start mole behaviour on other screen
   }
 
   render() {
