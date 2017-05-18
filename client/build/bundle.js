@@ -11374,7 +11374,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'h1',
         { id: 'heading' },
-        'Whack-A-Mole'
+        'WHACK-A-MOLE!'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',

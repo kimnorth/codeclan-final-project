@@ -207,7 +207,7 @@ class Game extends React.Component {
 
       <div>
 
-      <h1 id="heading">Whack-A-Mole</h1>
+      <h1 id="heading">WHACK-A-MOLE!</h1>
 
     <div id="game-container">
 
